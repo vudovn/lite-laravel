@@ -3,7 +3,6 @@
  * Home page view
  */
 ?>
-
 <div class="container py-5">
     <div class="row align-items-center">
         <div class="col-md-6">

@@ -1,0 +1,9 @@
+{
+  "name": "vudovn/lite-laravel",
+  "description": "A lightweight Laravel alternative",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.0"
+  }
+}

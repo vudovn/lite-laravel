@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VuToiChoi - PHP Framework Nhẹ và Mạnh Mẽ</title>
+    <title>Lite Laravel - PHP Framework</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -369,7 +369,7 @@
             </button>
 
             <a href="/" class="logo">
-                <span>VuToiChoi</span>
+                <span>Lite Laravel</span>
             </a>
 
             <div class="nav-links">
@@ -441,7 +441,7 @@
     <!-- Main Content -->
     <main class="documentation-content">
         <div class="content-section">
-            <h1 id="gioi-thieu">VuToiChoi Framework</h1>
+            <h1 id="gioi-thieu">Lite Laravel Framework</h1>
 
             <div class="table-of-contents">
                 <h4>Nội dung</h4>
@@ -453,27 +453,30 @@
                 </ul>
             </div>
 
-            <p>VuToiChoi là một PHP framework nhẹ, mạnh mẽ và linh hoạt lấy cảm hứng từ Laravel nhưng tập trung vào hiệu
-                suất cao và dễ sử dụng. Framework được thiết kế để giúp các nhà phát triển xây dựng các ứng dụng web một
-                cách nhanh chóng mà không cần phải học quá nhiều khái niệm phức tạp.</p>
+            <p>Lite Laravel là một PHP framework nhẹ, mạnh mẽ và linh hoạt, được thiết kế như một phiên bản "lite" của
+                Laravel. Framework này giữ lại tinh hoa và cấu trúc quen thuộc của Laravel nhưng được tối ưu hóa về hiệu
+                suất và dung lượng, giúp việc phát triển web trở nên dễ dàng và nhanh chóng hơn.</p>
 
-            <p>VuToiChoi cung cấp các tính năng cần thiết cho phát triển web hiện đại như routing mạnh mẽ, hệ thống MVC
-                đơn giản, template engine, validation, database abstraction, và nhiều tiện ích khác.</p>
+            <p>Là phiên bản "lite" của Laravel, Lite Laravel duy trì các tính năng cốt lõi mà các nhà phát triển yêu
+                thích như
+                routing mạnh mẽ, MVC pattern, template engine đơn giản, validation, database abstraction, và nhiều tiện
+                ích khác - tất cả được xây dựng với mục tiêu đơn giản hóa quy trình phát triển.</p>
 
             <div class="tip">
-                <p>VuToiChoi được xây dựng với mục tiêu đơn giản hóa quy trình phát triển mà vẫn giữ được tính linh hoạt
-                    và mạnh mẽ. Nếu bạn quen thuộc với Laravel, bạn sẽ cảm thấy thoải mái khi sử dụng VuToiChoi.</p>
+                <p>Lite Laravel là lựa chọn hoàn hảo cho những dự án cần sự nhanh nhẹn và hiệu quả của một framework
+                    nhẹ,
+                    nhưng vẫn muốn giữ lại cú pháp quen thuộc và flow làm việc của Laravel.</p>
             </div>
 
             <h2 id="cai-dat">Cài đặt</h2>
 
-            <p>VuToiChoi yêu cầu PHP phiên bản 7.4 trở lên và Composer để quản lý các phụ thuộc.</p>
+            <p>Lite Laravel yêu cầu PHP phiên bản 7.4 trở lên và Composer để quản lý các phụ thuộc.</p>
 
             <h3>Thông qua Composer Create-Project</h3>
 
-            <p>Cách đơn giản nhất để tạo một dự án VuToiChoi mới là sử dụng Composer:</p>
+            <p>Cách đơn giản nhất để tạo một dự án Lite Laravel mới là sử dụng Composer:</p>
 
-            <pre><code>composer create-project vutoichoi/framework ten-du-an</code></pre>
+            <pre><code>composer create-project litelaravel/framework ten-du-an</code></pre>
 
             <p>Lệnh này sẽ tạo một thư mục mới có tên "ten-du-an" với tất cả các phụ thuộc đã được cài đặt.</p>
 
@@ -490,7 +493,7 @@
 
             <p>Chỉnh sửa file <code>.env</code> để thiết lập các thông số như database, URL ứng dụng, và môi trường:</p>
 
-            <pre><code>APP_NAME=VuToiChoi
+            <pre><code>APP_NAME=LiteLaravel
 APP_ENV=development
 APP_DEBUG=true
 APP_URL=http://localhost
@@ -503,7 +506,7 @@ DB_CHARSET=utf8mb4</code></pre>
 
             <h2 id="cau-truc-thu-muc">Cấu trúc thư mục</h2>
 
-            <p>Dự án VuToiChoi có cấu trúc thư mục được tổ chức một cách rõ ràng:</p>
+            <p>Dự án Lite Laravel có cấu trúc thư mục được tổ chức một cách rõ ràng:</p>
 
             <pre><code>/app                  # Chứa mã nguồn ứng dụng
   /Controllers        # Các controllers của ứng dụng
@@ -546,7 +549,7 @@ DB_CHARSET=utf8mb4</code></pre>
             <h3>Thư mục Routes</h3>
 
             <p>Thư mục <code>routes</code> chứa tất cả các định nghĩa route cho ứng dụng của bạn. Theo mặc định,
-                VuToiChoi đi kèm với file <code>web.php</code> cho các routes web.</p>
+                Lite Laravel đi kèm với file <code>web.php</code> cho các routes web.</p>
 
             <h3>Thư mục Storage</h3>
 
@@ -555,7 +558,8 @@ DB_CHARSET=utf8mb4</code></pre>
 
             <h2 id="basic-routing">Basic Routing</h2>
 
-            <p>VuToiChoi cung cấp một cú pháp đơn giản và dễ đọc để định nghĩa các routes cho ứng dụng của bạn. Route cơ
+            <p>Lite Laravel cung cấp một cú pháp đơn giản và dễ đọc để định nghĩa các routes cho ứng dụng của bạn. Route
+                cơ
                 bản nhất chấp nhận một URI và một Closure:</p>
 
             <pre><code>// routes/web.php
@@ -610,7 +614,8 @@ $router->post('/users', 'UserController@store');</code></pre>
 
             <h2 id="resource-routes">Resource Routes</h2>
 
-            <p>VuToiChoi cung cấp một cách thuận tiện để định nghĩa các routes cho các controller RESTful. Thay vì định
+            <p>Lite Laravel cung cấp một cách thuận tiện để định nghĩa các routes cho các controller RESTful. Thay vì
+                định
                 nghĩa từng route riêng lẻ, bạn có thể sử dụng phương thức <code>resource</code> để tạo nhiều route cho
                 một resource với một dòng code:</p>
 
@@ -714,7 +719,7 @@ class UserController
             <pre><code>$router->get('/users', 'UserController@index');
 $router->get('/users/{id}', 'UserController@show');</code></pre>
 
-            <p>VuToiChoi sẽ tự động phân giải lớp controller và gọi phương thức được chỉ định.</p>
+            <p>Lite Laravel sẽ tự động phân giải lớp controller và gọi phương thức được chỉ định.</p>
 
             <h2 id="resource-controllers">Resource Controllers</h2>
 
@@ -823,7 +828,8 @@ class UserController
             <h2 id="basic-views">Basic Views</h2>
 
             <p>Views chứa HTML của ứng dụng và tách logic ứng dụng khỏi logic hiển thị. Views được lưu trong thư mục
-                <code>resources/views</code>.</p>
+                <code>resources/views</code>.
+            </p>
 
             <p>Ví dụ đơn giản về một view:</p>
 
@@ -854,7 +860,8 @@ class UserController
 
             <h2 id="templates">Templates</h2>
 
-            <p>VuToiChoi cung cấp template engine đơn giản nhưng mạnh mẽ. Template engine cho phép bạn sử dụng các biến,
+            <p>Lite Laravel cung cấp template engine đơn giản nhưng mạnh mẽ. Template engine cho phép bạn sử dụng các
+                biến,
                 điều kiện, vòng lặp và bao gồm các template khác.</p>
 
             <h3>Hiển Thị Dữ Liệu</h3>
@@ -881,7 +888,7 @@ class UserController
 
             <h3>Vòng Lặp</h3>
 
-            <p>VuToiChoi cung cấp các cấu trúc điều khiển thuận tiện cho các vòng lặp:</p>
+            <p>Lite Laravel cung cấp các cấu trúc điều khiển thuận tiện cho các vòng lặp:</p>
 
             <pre><code>@foreach ($users as $user)
     &lt;p>Tên: {{ $user->name }}&lt;/p>
@@ -900,7 +907,7 @@ class UserController
 &lt;!DOCTYPE html>
 &lt;html>
 &lt;head>
-    &lt;title>{{ $title ?? 'VuToiChoi App' }}&lt;/title>
+    &lt;title>{{ $title ?? 'Lite Laravel App' }}&lt;/title>
     &lt;link rel="stylesheet" href="{{ asset('css/app.css') }}">
 &lt;/head>
 &lt;body>
@@ -928,7 +935,7 @@ class UserController
 &lt;?php $this->setLayout('layouts.app'); ?>
 
 &lt;h1>Trang chủ&lt;/h1>
-&lt;p>Chào mừng đến với ứng dụng VuToiChoi!&lt;/p></code></pre>
+&lt;p>Chào mừng đến với ứng dụng Lite Laravel!&lt;/p></code></pre>
 
             <h3>Sections</h3>
 
@@ -938,7 +945,7 @@ class UserController
 &lt;!DOCTYPE html>
 &lt;html>
 &lt;head>
-    &lt;title>{{ $title ?? 'VuToiChoi App' }}&lt;/title>
+    &lt;title>{{ $title ?? 'Lite Laravel App' }}&lt;/title>
     &lt;link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('styles')
 &lt;/head>
@@ -973,7 +980,7 @@ class UserController
 
 @section('content')
 &lt;h1 class="home-header">Trang chủ&lt;/h1>
-&lt;p>Chào mừng đến với ứng dụng VuToiChoi!&lt;/p>
+&lt;p>Chào mừng đến với ứng dụng Lite Laravel!&lt;/p>
 @endsection
 
 @section('scripts')
@@ -984,9 +991,10 @@ class UserController
 
             <h2 id="database-config">Database Configuration</h2>
 
-            <p>VuToiChoi cung cấp một phương thức đơn giản để làm việc với cơ sở dữ liệu. Cấu hình cơ sở dữ liệu được
+            <p>Lite Laravel cung cấp một phương thức đơn giản để làm việc với cơ sở dữ liệu. Cấu hình cơ sở dữ liệu được
                 lưu trữ trong file <code>config/database.php</code> và có thể được cấu hình thông qua file
-                <code>.env</code>.</p>
+                <code>.env</code>.
+            </p>
 
             <pre><code>// .env
 DB_HOST=localhost
@@ -1000,7 +1008,7 @@ DB_CHARSET=utf8mb4</code></pre>
 
             <h2 id="query-builder">Query Builder</h2>
 
-            <p>VuToiChoi cung cấp một query builder đơn giản để xây dựng và thực thi các truy vấn SQL.</p>
+            <p>Lite Laravel cung cấp một query builder đơn giản để xây dựng và thực thi các truy vấn SQL.</p>
 
             <h3>Lấy Tất Cả Bản Ghi</h3>
 
@@ -1050,7 +1058,8 @@ DB_CHARSET=utf8mb4</code></pre>
 
             <h2 id="models">Models</h2>
 
-            <p>VuToiChoi cung cấp lớp Model cơ bản mà bạn có thể kế thừa để tương tác với bảng trong cơ sở dữ liệu.</p>
+            <p>Lite Laravel cung cấp lớp Model cơ bản mà bạn có thể kế thừa để tương tác với bảng trong cơ sở dữ liệu.
+            </p>
 
             <h3>Định Nghĩa Model</h3>
 
@@ -1097,7 +1106,8 @@ $user->delete();</code></pre>
 
             <h2 id="authentication">Authentication</h2>
 
-            <p>VuToiChoi cung cấp một hệ thống xác thực đơn giản nhưng mạnh mẽ. Bạn có thể sử dụng các phương thức được
+            <p>Lite Laravel cung cấp một hệ thống xác thực đơn giản nhưng mạnh mẽ. Bạn có thể sử dụng các phương thức
+                được
                 cung cấp để xác thực người dùng, kiểm tra trạng thái đăng nhập và quản lý phiên làm việc.</p>
 
             <h3>Đăng Nhập Người Dùng</h3>
@@ -1139,7 +1149,7 @@ return redirect('/');</code></pre>
 
             <h2 id="validation">Validation</h2>
 
-            <p>VuToiChoi cung cấp một hệ thống validation dễ sử dụng để xác thực dữ liệu đầu vào.</p>
+            <p>Lite Laravel cung cấp một hệ thống validation dễ sử dụng để xác thực dữ liệu đầu vào.</p>
 
             <h3>Cơ Bản</h3>
 
@@ -1154,7 +1164,7 @@ return redirect('/');</code></pre>
 
             <h3>Các Quy Tắc Validation</h3>
 
-            <p>VuToiChoi cung cấp nhiều quy tắc validation:</p>
+            <p>Lite Laravel cung cấp nhiều quy tắc validation:</p>
 
             <ul>
                 <li><code>required</code>: Trường phải có mặt và không trống</li>
@@ -1182,7 +1192,8 @@ return redirect('/');</code></pre>
 
             <h2 id="csrf-protection">CSRF Protection</h2>
 
-            <p>VuToiChoi bao gồm bảo vệ CSRF (Cross-Site Request Forgery) để bảo vệ ứng dụng của bạn khỏi các cuộc tấn
+            <p>Lite Laravel bao gồm bảo vệ CSRF (Cross-Site Request Forgery) để bảo vệ ứng dụng của bạn khỏi các cuộc
+                tấn
                 công CSRF.</p>
 
             <p>Để bảo vệ form của bạn, bạn cần thêm token CSRF vào form:</p>

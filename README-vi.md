@@ -1,6 +1,6 @@
-# VuToiChoi Framework
+# Lite Laravel
 
-Framework PHP nhẹ, đơn giản và mạnh mẽ cho các ứng dụng web hiện đại. VuToiChoi lấy cảm hứng từ Laravel nhưng tập trung vào hiệu suất cao và dễ sử dụng.
+Framework PHP nhẹ, đơn giản và mạnh mẽ cho các ứng dụng web hiện đại. Lite Laravel lấy cảm hứng từ Laravel nhưng tập trung vào hiệu suất cao và dễ sử dụng.
 
 ## Tính năng
 
@@ -23,7 +23,7 @@ Framework PHP nhẹ, đơn giản và mạnh mẽ cho các ứng dụng web hi�
 ### Cài đặt thông qua Composer
 
 ```bash
-composer create-project vutoichoi/framework ten-du-an
+composer create-project litelaravel/framework ten-du-an
 ```
 
 ### Cấu hình cơ bản
@@ -37,7 +37,7 @@ cp .env.example .env
 Chỉnh sửa file `.env` để cấu hình database và các thông số khác:
 
 ```bash
-APP_NAME=VuToiChoi
+APP_NAME=LiteLaravel
 APP_ENV=development
 APP_DEBUG=true
 APP_URL=http://localhost
@@ -60,7 +60,7 @@ $router->get('/', function () {
 });
 
 $router->get('/hello', function () {
-    return 'Xin chào từ VuToiChoi Framework!';
+    return 'Xin chào từ Lite Laravel Framework!';
 });
 ```
 
@@ -132,7 +132,7 @@ $router->delete('/users/{id}', 'UserController@destroy');
 
 ```php
 $router->get('/welcome', function () {
-    return 'Xin chào VuToiChoi!';
+    return 'Xin chào Lite Laravel!';
 });
 ```
 
@@ -253,4 +253,4 @@ Chúng tôi rất hoan nghênh mọi đóng góp để cải thiện framework! 
 
 ## License
 
-VuToiChoi Framework được phát hành dưới [giấy phép MIT](LICENSE).
+Lite Laravel Framework được phát hành dưới [giấy phép MIT](LICENSE).
