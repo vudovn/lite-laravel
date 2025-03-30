@@ -1,0 +1,32 @@
+<?php
+
+use Framework\Database\Migration\Migration;
+use Framework\Database\Migration\Schema;
+use Framework\Database\Migration\Blueprint;
+
+class {{ class }} extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('{{ table }}', function (Blueprint $table) {
+            $table->id();
+            // Add your columns here
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('{{ table }}');
+    }
+} 

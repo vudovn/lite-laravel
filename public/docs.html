@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VuToiChoi Framework - Tài Liệu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6cf7;
+            --secondary-color: #6c757d;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9fafb;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #4a6cf7 0%, #24319a 100%);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-top: 20px;
+        }
+
+        .sidebar .nav-link {
+            color: #495057;
+            border-radius: 5px;
+            padding: 8px 16px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar h5 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #6c757d;
+        }
+
+        .main-content {
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        pre {
+            background-color: #282c34;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .feature-card {
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .footer {
+            background-color: #212529;
+            color: #f8f9fa;
+            padding: 40px 0;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #3d5cf5;
+            border-color: #3d5cf5;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 600;
+        }
+
+        .content-section h2 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .content-section h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .content-section p {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">VuToiChoi Framework</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#getting-started">Bắt đầu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#docs">Tài liệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/vutoichoi/framework" target="_blank">GitHub</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">VuToiChoi Framework</h1>
+            <p class="lead mb-5">Framework PHP nhẹ, đơn giản và mạnh mẽ lấy cảm hứng từ Laravel</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#getting-started" class="btn btn-light px-4 py-2">Bắt đầu ngay</a>
+                <a href="#docs" class="btn btn-outline-light px-4 py-2">Xem tài liệu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">Tính năng chính</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card p-4">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="bi bi-lightning-charge"></i>
+                                ⚡
+                            </div>
+                            <h4 class="card-title">Nhẹ và Nhanh</h4>
+                            <p class="card-text">Được thiết kế tối ưu hiệu suất với codebase nhẹ mà vẫn mạnh mẽ.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card p-4">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="bi bi-diagram-3"></i>
+                                🧩
+                            </div>
+                            <h4 class="card-title">MVC Architecture</h4>
+                            <p class="card-text">Cấu trúc Model-View-Controller rõ ràng giúp code dễ bảo trì và mở rộng.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card p-4">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="bi bi-tools"></i>
+                                🛠️
+                            </div>
+                            <h4 class="card-title">Nhiều tiện ích</h4>
+                            <p class="card-text">Hệ thống routing linh hoạt, validation mạnh mẽ và nhiều helper
+                                functions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started Section -->
+    <section id="getting-started" class="section">
+        <div class="container">
+            <h2 class="text-center mb-5">Bắt đầu nhanh chóng</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="main-content">
+                        <h3>Cài đặt</h3>
+                        <p>Cài đặt VuToiChoi Framework với Composer:</p>
+                        <pre><code class="language-bash">composer create-project vutoichoi/framework ten-du-an</code></pre>
+
+                        <h3>Tạo route đầu tiên</h3>
+                        <p>Mở file <code>routes/web.php</code> và thêm một route mới:</p>
+                        <pre><code class="language-php">$router->get('/hello', function() {
+    return 'Xin chào từ VuToiChoi Framework!';
+});</code></pre>
+
+                        <h3>Tạo một controller</h3>
+                        <p>Tạo file <code>app/Controllers/HomeController.php</code>:</p>
+                        <pre><code class="language-php">&lt;?php
+
+namespace App\Controllers;
+
+use Framework\Request;
+
+class HomeController
+{
+    public function index(Request $request)
+    {
+        return view('home', [
+            'title' => 'Trang chủ',
+            'message' => 'Chào mừng đến với VuToiChoi Framework!'
+        ]);
+    }
+}</code></pre>
+
+                        <h3>Tạo một view</h3>
+                        <p>Tạo file <code>resources/views/home.php</code>:</p>
+                        <pre><code class="language-php">&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+    &lt;title>&lt;?= $title ?>&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;h1>&lt;?= $message ?>&lt;/h1>
+    &lt;p>Framework nhẹ và mạnh mẽ cho các ứng dụng PHP&lt;/p>
+&lt;/body>
+&lt;/html></code></pre>
+
+                        <h3>Chạy ứng dụng</h3>
+                        <p>Chạy ứng dụng bằng cách sử dụng PHP built-in server:</p>
+                        <pre><code class="language-bash">php -S localhost:8000 -t public</code></pre>
+                        <p>Mở trình duyệt và truy cập <code>http://localhost:8000</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="docs" class="section bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Tài liệu</h2>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="sidebar">
+                        <div class="nav flex-column">
+                            <h5>Cơ bản</h5>
+                            <a class="nav-link active" href="#introduction">Giới thiệu</a>
+                            <a class="nav-link" href="#installation">Cài đặt</a>
+                            <a class="nav-link" href="#directory-structure">Cấu trúc thư mục</a>
+
+                            <h5>Tính năng chính</h5>
+                            <a class="nav-link" href="#routing">Routing</a>
+                            <a class="nav-link" href="#controllers">Controllers</a>
+                            <a class="nav-link" href="#views">Views</a>
+                            <a class="nav-link" href="#request-response">Request & Response</a>
+                            <a class="nav-link" href="#validation">Validation</a>
+                            <a class="nav-link" href="#database">Database</a>
+                            <a class="nav-link" href="#session">Session</a>
+
+                            <h5>Nâng cao</h5>
+                            <a class="nav-link" href="#helpers">Helper Functions</a>
+                            <a class="nav-link" href="#middleware">Middleware</a>
+                            <a class="nav-link" href="#cache">Cache</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="main-content content-section">
+                        <section id="introduction">
+                            <h2>Giới thiệu</h2>
+                            <p>VuToiChoi là một framework PHP nhẹ, đơn giản và mạnh mẽ, lấy cảm hứng từ Laravel nhưng
+                                tập trung vào hiệu suất cao và dễ sử dụng. Framework này được thiết kế để giúp các nhà
+                                phát triển xây dựng các ứng dụng web một cách nhanh chóng mà không cần phải học quá
+                                nhiều khái niệm phức tạp.</p>
+                            <p>Mục tiêu của VuToiChoi là cung cấp một nền tảng đơn giản nhưng mạnh mẽ để phát triển các
+                                ứng dụng web hiện đại. Framework cung cấp các tính năng cần thiết như routing,
+                                controller, views, database integration, validation, và nhiều tiện ích khác.</p>
+                        </section>
+
+                        <section id="installation">
+                            <h2>Cài đặt</h2>
+                            <h3>Yêu cầu hệ thống</h3>
+                            <ul>
+                                <li>PHP 7.4 hoặc cao hơn</li>
+                                <li>Composer</li>
+                            </ul>
+
+                            <h3>Cài đặt thông qua Composer</h3>
+                            <pre><code class="language-bash">composer create-project vutoichoi/framework ten-du-an</code></pre>
+
+                            <h3>Cấu hình môi trường</h3>
+                            <p>Sau khi cài đặt, sao chép file <code>.env.example</code> thành <code>.env</code> và cấu
+                                hình các thông số môi trường:</p>
+                            <pre><code class="language-dotenv">APP_NAME=VuToiChoi
+APP_ENV=development
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_HOST=localhost
+DB_DATABASE=database_name
+DB_USERNAME=root
+DB_PASSWORD=
+DB_CHARSET=utf8mb4</code></pre>
+                        </section>
+
+                        <section id="directory-structure">
+                            <h2>Cấu trúc thư mục</h2>
+                            <pre><code class="language-shell">/app                  # Chứa mã nguồn ứng dụng
+  /Controllers        # Các controllers của ứng dụng
+  /Models             # Các models của ứng dụng
+  /Middleware         # Các middleware của ứng dụng
+/bootstrap            # Tệp khởi động ứng dụng
+/config               # Cấu hình ứng dụng
+/Framework            # Mã nguồn của framework
+/public               # Điểm vào của ứng dụng
+/resources            # Tài nguyên như views, assets
+  /views              # Các template của ứng dụng
+/routes               # Định nghĩa routes
+/storage              # Dữ liệu được tạo ra bởi ứng dụng</code></pre>
+                        </section>
+
+                        <section id="routing">
+                            <h2>Routing</h2>
+                            <p>VuToiChoi cung cấp hệ thống routing đơn giản và linh hoạt để định nghĩa các route cho ứng
+                                dụng của bạn:</p>
+
+                            <h3>Định nghĩa Routes Cơ bản</h3>
+                            <pre><code class="language-php">// routes/web.php
+$router->get('/', function () {
+    return view('welcome');
+});
+
+$router->get('/hello', function () {
+    return 'Xin chào từ VuToiChoi!';
+});</code></pre>
+
+                            <h3>Route với Controllers</h3>
+                            <pre><code class="language-php">$router->get('/users', 'UserController@index');
+$router->post('/users', 'UserController@store');</code></pre>
+
+                            <h3>Route Parameters</h3>
+                            <pre><code class="language-php">$router->get('/users/{id}', function ($request) {
+    $id = $request->param('id');
+    return "Người dùng có ID: {$id}";
+});</code></pre>
+
+                            <h3>Route Groups</h3>
+                            <pre><code class="language-php">$router->group(['prefix' => 'admin'], function ($router) {
+    $router->get('/dashboard', 'AdminController@dashboard');
+    $router->get('/users', 'AdminController@users');
+});</code></pre>
+
+                            <h3>Resource Routes</h3>
+                            <pre><code class="language-php">$router->resource('users', 'UserController');</code></pre>
+                        </section>
+
+                        <section id="controllers">
+                            <h2>Controllers</h2>
+                            <p>Controllers giúp tổ chức logic xử lý các request HTTP vào các lớp:</p>
+
+                            <h3>Tạo Controller</h3>
+                            <pre><code class="language-php">// app/Controllers/UserController.php
+namespace App\Controllers;
+
+use Framework\Request;
+
+class UserController
+{
+    public function index(Request $request)
+    {
+        // Hiển thị danh sách users
+        return view('users.index', ['users' => $users]);
+    }
+
+    public function show(Request $request)
+    {
+        $id = $request->param('id');
+        // Lấy thông tin user theo ID
+        return view('users.show', ['user' => $user]);
+    }
+}</code></pre>
+                        </section>
+
+                        <div class="text-center mt-5">
+                            <p>Xem đầy đủ tài liệu tại <a href="docs/framework-vi.md">đây</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>VuToiChoi Framework</h4>
+                    <p>Framework PHP nhẹ, đơn giản và mạnh mẽ cho các ứng dụng web hiện đại.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Trang chủ</a></li>
+                        <li><a href="#docs" class="text-light">Tài liệu</a></li>
+                        <li><a href="https://github.com/vutoichoi/framework" class="text-light">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Tài liệu</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#routing" class="text-light">Routing</a></li>
+                        <li><a href="#controllers" class="text-light">Controllers</a></li>
+                        <li><a href="#views" class="text-light">Views</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4 bg-light">
+            <div class="text-center">
+                <p>&copy; 2023 VuToiChoi Framework. Tất cả các quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Active link switching
+            const sections = document.querySelectorAll('.content-section section');
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    if (pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

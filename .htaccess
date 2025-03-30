@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Prevent direct access to files outside of public
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Deny access to sensitive files
+
+<FilesMatch "^\.">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Deny access to framework directories
+
+<IfModule mod_rewrite.c>
+    RewriteRule ^(app|bootstrap|config|database|routes|storage|tests|vendor) - [F,L]
+</IfModule>

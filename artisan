@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * LitePHP Framework - Command Line Interface
+ */
+
+define('LITEPHP_START', microtime(true));
+
+require __DIR__ . '/bootstrap/autoload.php';
+
+$app = require __DIR__ . '/bootstrap/app.php';
+
+$kernel = $app->resolve('console');
+$status = $kernel->handle();
+
+exit($status);
