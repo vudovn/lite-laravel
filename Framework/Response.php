@@ -61,39 +61,28 @@ class Response
         );
     }
 
-    public static function view($template, $data = [], $statusCode = 200)
+    /**
+     * Create a view response
+     * 
+     * @param string $template
+     * @param array $data
+     * @return static
+     */
+    public static function view($template, $data = [])
     {
-        // Use view_path helper instead of hardcoded path
-        $view = new View(view_path());
-
-        // Get view config
-        $viewConfig = config('view', []);
-
-        // Set default layout if not specified in data
-        if (!isset($data['layout'])) {
-            $view->setLayout($viewConfig['default_layout'] ?? 'layouts.app');
-        }
-
         try {
+            $view = app('view');
             $content = $view->render($template, $data);
-            return new static($content, $statusCode);
+            return new static($content);
         } catch (\Exception $e) {
             // Log error
-            error_log('View error: ' . $e->getMessage());
-
-            // Return a nice error in development
-            if (env('APP_ENV', 'production') === 'development' || config('app.debug', false)) {
-                $errorContent = '<h1>View Error</h1>';
-                $errorContent .= '<p>' . $e->getMessage() . '</p>';
-                $errorContent .= '<h2>Template</h2>';
-                $errorContent .= '<p>' . $template . '</p>';
-                $errorContent .= '<h2>Stack Trace</h2>';
-                $errorContent .= '<pre>' . $e->getTraceAsString() . '</pre>';
-                return new static($errorContent, 500);
+            error_log("View error: " . $e->getMessage());
+            // Return error response in development
+            if (env('APP_ENV') === 'local') {
+                return new static('<div style="color:red;"><h1>View Error</h1><p>' . $e->getMessage() . '</p><pre>' . $e->getTraceAsString() . '</pre></div>', 500);
             }
-
             // Generic error in production
-            return new static('Error rendering view', 500);
+            return new static('Internal Server Error', 500);
         }
     }
 

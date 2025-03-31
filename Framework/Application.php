@@ -33,6 +33,11 @@ class Application
             return new View(dirname(__DIR__) . '/resources/views');
         });
 
+        // Đăng ký library manager
+        $this->singleton('library', function () {
+            return new \Framework\Library\LibraryManager();
+        });
+
         // Register database connection
         $this->singleton('db', function () {
             // Simple PDO database connection
@@ -143,7 +148,16 @@ class Application
 
     protected function sendRequestThroughRouter($request, $router)
     {
-        return $router->dispatch($request);
+        // Create destination closure for router
+        $routerClosure = function ($request) use ($router) {
+            return $router->dispatch($request);
+        };
+
+        // Initialize middleware handler
+        $middlewareHandler = new \Framework\Middleware\MiddlewareHandler($this);
+
+        // Send request through middleware pipeline then to router
+        return $middlewareHandler->handle($request, $routerClosure);
     }
 
     /**

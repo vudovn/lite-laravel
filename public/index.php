@@ -1,5 +1,4 @@
 <?php
-
 /**
  * VuToiChoi - A lightweight Laravel-inspired PHP Framework
  */

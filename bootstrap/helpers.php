@@ -130,144 +130,25 @@ if (!function_exists('session')) {
      *
      * @param  string|null  $key
      * @param  mixed  $value
-     * @return mixed|\Framework\Session\SessionManager
+     * @return mixed|\Framework\Session
      */
     function session($key = null, $value = null)
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $session = app('session');
 
+        // If no key provided, return the session instance
         if ($key === null) {
-            return new class {
-                public function get($key, $default = null)
-                {
-                    return $_SESSION[$key] ?? $default;
-                }
-
-                public function put($key, $value)
-                {
-                    $_SESSION[$key] = $value;
-                    return $value;
-                }
-
-                public function has($key)
-                {
-                    return isset($_SESSION[$key]);
-                }
-
-                public function forget($key)
-                {
-                    unset($_SESSION[$key]);
-                }
-
-                public function flash($key, $value)
-                {
-                    $_SESSION['_flash'][$key] = $value;
-                }
-
-                public function getFlash($key, $default = null)
-                {
-                    $value = $_SESSION['_flash'][$key] ?? $default;
-                    unset($_SESSION['_flash'][$key]);
-                    return $value;
-                }
-
-                // Rename to addNotification to avoid conflict with flash()
-                public function addNotification($type, $message, $title = '')
-                {
-                    if (!isset($_SESSION['flash_notification'])) {
-                        $_SESSION['flash_notification'] = [];
-                    }
-
-                    $_SESSION['flash_notification'][] = [
-                        'type' => $type,
-                        'message' => $message,
-                        'title' => $title
-                    ];
-                }
-            };
+            return $session;
         }
 
+        // If value is provided, set the value and return it
         if ($value !== null) {
-            $_SESSION[$key] = $value;
+            $session->set($key, $value);
             return $value;
         }
 
-        return $_SESSION[$key] ?? null;
-    }
-}
-
-// Add toast notification helpers
-if (!function_exists('toast')) {
-    /**
-     * Flash a toast notification
-     *
-     * @param  string  $message
-     * @param  string  $type
-     * @param  string  $title
-     * @return void
-     */
-    function toast($message, $type = 'info', $title = '')
-    {
-        // Use addNotification instead of flash
-        session()->addNotification($type, $message, $title);
-    }
-}
-
-if (!function_exists('toast_success')) {
-    /**
-     * Flash a success toast notification
-     *
-     * @param  string  $message
-     * @param  string  $title
-     * @return void
-     */
-    function toast_success($message, $title = 'Success')
-    {
-        toast($message, 'success', $title);
-    }
-}
-
-if (!function_exists('toast_error')) {
-    /**
-     * Flash an error toast notification
-     *
-     * @param  string  $message
-     * @param  string  $title
-     * @return void
-     */
-    function toast_error($message, $title = 'Error')
-    {
-        toast($message, 'error', $title);
-    }
-}
-
-if (!function_exists('toast_info')) {
-    /**
-     * Flash an info toast notification
-     *
-     * @param  string  $message
-     * @param  string  $title
-     * @return void
-     */
-    function toast_info($message, $title = 'Info')
-    {
-        toast($message, 'info', $title);
-    }
-}
-
-if (!function_exists('toast_warning')) {
-    /**
-     * Flash a warning toast notification
-     *
-     * @param  string  $message
-     * @param  string  $title
-     * @return void
-     */
-    function toast_warning($message, $title = 'Warning')
-    {
-        toast($message, 'warning', $title);
+        // Otherwise return the value for the key
+        return $session->get($key);
     }
 }
 
@@ -326,6 +207,19 @@ if (!function_exists('url')) {
     }
 }
 
+if (!function_exists('method_field')) {
+    /**
+     * Generate a form field for spoofing HTTP methods.
+     *
+     * @param  string  $method
+     * @return string
+     */
+    function method_field($method)
+    {
+        return '<input type="hidden" name="_method" value="' . $method . '">';
+    }
+}
+
 if (!function_exists('old')) {
     /**
      * Get a previous input value.
@@ -369,5 +263,33 @@ if (!function_exists('auth')) {
         }
         $user = \App\Models\User::find($userId);
         return $user;
+    }
+}
+
+if (!function_exists('view_path')) {
+    /**
+     * Get the path to the views directory
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function view_path($path = '')
+    {
+        $viewsPath = app('paths.resources') . '/views';
+        return $viewsPath . ($path ? '/' . ltrim($path, '/') : '');
+    }
+}
+
+if (!function_exists('has_error')) {
+    /**
+     * Check if a field has a validation error
+     *
+     * @param  string  $field
+     * @return bool
+     */
+    function has_error($field)
+    {
+        $errors = session('_errors');
+        return isset($errors) && isset($errors[$field]);
     }
 }

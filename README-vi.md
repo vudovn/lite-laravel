@@ -1,256 +1,146 @@
-# Lite Laravel
+# Lite Laravel Framework
 
-Framework PHP nhẹ, đơn giản và mạnh mẽ cho các ứng dụng web hiện đại. Lite Laravel lấy cảm hứng từ Laravel nhưng tập trung vào hiệu suất cao và dễ sử dụng.
+Framework PHP nhẹ, hiệu suất cao lấy cảm hứng từ Laravel, kết hợp sự đơn giản với các tính năng mạnh mẽ cho các ứng dụng web hiện đại.
 
-## Tính năng
+## Tính Năng Chính
 
-- **Nhẹ và nhanh**: Được thiết kế tối ưu hiệu suất với codebase nhỏ gọn
-- **MVC Architecture**: Mô hình Model-View-Controller rõ ràng và dễ hiểu
-- **Routing linh hoạt**: Hỗ trợ các HTTP methods, route parameters, route groups
-- **Blade-like Templates**: Hệ thống template linh hoạt với cú pháp tương tự Blade
-- **Validation**: Hệ thống validation mạnh mẽ và dễ sử dụng
-- **Database Integration**: Tích hợp dễ dàng với cơ sở dữ liệu
-- **Session & Cache**: Quản lý session và cache đơn giản
-- **Helper Functions**: Nhiều hàm helper để phát triển nhanh chóng
+- **Hệ Thống Định Tuyến Tối Ưu**: Định nghĩa route đơn giản và linh hoạt
+- **Kiến Trúc MVC**: Phân tách rõ ràng giữa Model, View và Controller
+- **Template Engine Hiện Đại**: Cú pháp template trực quan, tương tự Blade
+- **Trừu Tượng Hóa Cơ Sở Dữ Liệu**: Query builder linh hoạt cho thao tác CSDL hiệu quả
+- **Xác Thực Biểu Mẫu**: Hệ thống xác thực toàn diện với xử lý lỗi rõ ràng
+- **Container Dependency Injection**: Container dịch vụ đơn giản nhưng mạnh mẽ
+- **Hỗ Trợ Middleware**: Lọc và xử lý request HTTP
+- **Quản Lý Session**: Xử lý session an toàn
+- **Hệ Thống Xác Thực**: Xác thực tích hợp với tùy chọn tùy biến
+- **Hỗ Trợ API**: Công cụ để xây dựng RESTful API dễ dàng
 
-## Cài đặt
+## Yêu Cầu Hệ Thống
 
-### Yêu cầu
-
-- PHP 7.4 hoặc cao hơn
+- PHP 8.0 trở lên
+- PDO PHP Extension
 - Composer
 
-### Cài đặt thông qua Composer
+## Cài Đặt Nhanh
 
 ```bash
-composer create-project litelaravel/framework ten-du-an
+composer create-project vudovn/lite-laravel ten-du-an
+cd ten-du-an
+php -S localhost:8000 -t public
 ```
 
-### Cấu hình cơ bản
+Truy cập `http://localhost:8000` trong trình duyệt để xem ứng dụng mới của bạn.
 
-Sao chép file `.env.example` thành `.env` và cấu hình các thông số môi trường:
+## Ví Dụ Sử Dụng Cơ Bản
 
-```bash
-cp .env.example .env
+### Định Nghĩa Routes
+
+```php
+// routes/web.php
+
+$router->get('/', function() {
+    return view('welcome');
+});
+
+$router->get('/users', 'UserController@index');
+$router->post('/users', 'UserController@store');
 ```
 
-Chỉnh sửa file `.env` để cấu hình database và các thông số khác:
+### Tạo Controllers
 
-```bash
+```php
+// app/Controllers/UserController.php
+
+namespace App\Controllers;
+
+use Framework\Controller;
+use Framework\Request;
+
+class UserController extends Controller
+{
+    public function index()
+    {
+        $users = // lấy dữ liệu từ model
+        return view('users.index', ['users' => $users]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email'
+        ]);
+
+        // Logic tạo user
+
+        return redirect('/users')->with('success', 'Đã tạo người dùng thành công');
+    }
+}
+```
+
+### Xây Dựng Views
+
+```php
+<!-- resources/views/users/index.php -->
+
+<h1>Danh Sách Người Dùng</h1>
+
+<ul>
+    <?php foreach ($users as $user): ?>
+        <li><?= $user->name ?> (<?= $user->email ?>)</li>
+    <?php endforeach; ?>
+</ul>
+```
+
+### Làm Việc Với Models
+
+```php
+// app/Models/User.php
+
+namespace App\Models;
+
+use Framework\Model;
+
+class User extends Model
+{
+    protected $table = 'users';
+    protected $fillable = ['name', 'email', 'password'];
+
+    // Các phương thức bổ sung...
+}
+```
+
+## Cấu Hình
+
+Các tệp cấu hình nằm trong thư mục `config`. Sao chép `.env.example` thành `.env` và cấu hình thiết lập ứng dụng của bạn:
+
+```
 APP_NAME=LiteLaravel
 APP_ENV=development
 APP_DEBUG=true
 APP_URL=http://localhost
 
 DB_HOST=localhost
-DB_DATABASE=database_name
-DB_USERNAME=root
-DB_PASSWORD=
-DB_CHARSET=utf8mb4
+DB_NAME=ten_database
+DB_USER=root
+DB_PASS=
 ```
 
-## Bắt đầu nhanh chóng
+## Tài Liệu
 
-### 1. Tạo route đầu tiên
+Để xem tài liệu chi tiết, vui lòng tham khảo các nguồn sau:
 
-```php
-// routes/web.php
-$router->get('/', function () {
-    return view('welcome');
-});
+- [Hướng Dẫn Framework](docs/framework-vi.md)
+- [Tài Liệu API](docs/api-vi.md)
+- [Sử Dụng Cơ Sở Dữ Liệu](docs/database-vi.md)
+- [Template View](docs/views-vi.md)
 
-$router->get('/hello', function () {
-    return 'Xin chào từ Lite Laravel Framework!';
-});
-```
+## Cộng Đồng & Hỗ Trợ
 
-### 2. Tạo controller
+- [GitHub Issues](https://github.com/vudovn/lite-laravel/issues)
+- [Diễn Đàn Cộng Đồng](https://forum.litelaravel.com)
+- [Tài Liệu](https://docs.litelaravel.com)
 
-```php
-// app/Controllers/UserController.php
-namespace App\Controllers;
+## Giấy Phép
 
-use Framework\Request;
-
-class UserController
-{
-    public function index(Request $request)
-    {
-        // Lấy tất cả users (đây chỉ là ví dụ)
-        $users = [
-            ['id' => 1, 'name' => 'Nguyễn Văn A'],
-            ['id' => 2, 'name' => 'Trần Thị B'],
-        ];
-
-        return view('users.index', ['users' => $users]);
-    }
-}
-```
-
-### 3. Tạo view
-
-```php
-// resources/views/users/index.php
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Danh sách người dùng</title>
-</head>
-<body>
-    <h1>Danh sách người dùng</h1>
-
-    <ul>
-        <?php foreach ($users as $user): ?>
-            <li><?php echo $user['name']; ?></li>
-        <?php endforeach; ?>
-    </ul>
-</body>
-</html>
-```
-
-### 4. Chạy ứng dụng
-
-```bash
-cd ten-du-an
-php -S localhost:8000 -t public
-```
-
-Mở trình duyệt và truy cập `http://localhost:8000`
-
-## Routing
-
-### Các HTTP Methods
-
-```php
-$router->get('/users', 'UserController@index');
-$router->post('/users', 'UserController@store');
-$router->put('/users/{id}', 'UserController@update');
-$router->delete('/users/{id}', 'UserController@destroy');
-```
-
-### Route với Closure
-
-```php
-$router->get('/welcome', function () {
-    return 'Xin chào Lite Laravel!';
-});
-```
-
-### Route với Parameters
-
-```php
-$router->get('/users/{id}', function ($request) {
-    $id = $request->param('id');
-    return "Người dùng có ID: {$id}";
-});
-```
-
-### Route Groups
-
-```php
-$router->group(['prefix' => 'admin'], function ($router) {
-    $router->get('/dashboard', 'AdminController@dashboard');
-    $router->get('/users', 'AdminController@users');
-});
-```
-
-### Resource Routes
-
-```php
-$router->resource('users', 'UserController');
-```
-
-## Controllers
-
-```php
-namespace App\Controllers;
-
-use Framework\Request;
-
-class UserController
-{
-    public function index(Request $request)
-    {
-        return view('users.index', ['users' => $users]);
-    }
-
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|min:3',
-            'email' => 'required|email',
-        ]);
-
-        // Lưu dữ liệu
-
-        return redirect('/users');
-    }
-}
-```
-
-## Views
-
-```php
-// Render view đơn giản
-return view('home', ['title' => 'Trang chủ']);
-
-// Với layout
-// resources/views/users/show.php
-<?php $this->setLayout('layouts.app'); ?>
-
-<div class="user-profile">
-    <h2><?php echo $user['name']; ?></h2>
-    <p>Email: <?php echo $user['email']; ?></p>
-</div>
-```
-
-## Request Handling
-
-```php
-// Lấy tất cả dữ liệu
-$data = $request->all();
-
-// Lấy một trường cụ thể
-$email = $request->get('email');
-
-// Kiểm tra trường tồn tại
-if ($request->has('email')) {
-    // Xử lý email
-}
-
-// Validate dữ liệu
-$validatedData = $request->validate([
-    'name' => 'required|min:3',
-    'email' => 'required|email',
-]);
-```
-
-## Database
-
-```php
-// Lấy kết nối database
-$db = app('db')->connection();
-
-// Query
-$users = $db->query("SELECT * FROM users")->fetchAll();
-
-// Prepared statement
-$stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
-$stmt->execute([$id]);
-$user = $stmt->fetch();
-```
-
-## Tài liệu đầy đủ
-
-Xem tài liệu đầy đủ tại thư mục `docs/` trong dự án hoặc truy cập trang web tài liệu:
-
-- [Tài liệu Framework](docs/framework-vi.md)
-- [API Documentation](docs/api-vi.md)
-
-## Đóng góp
-
-Chúng tôi rất hoan nghênh mọi đóng góp để cải thiện framework! Vui lòng tạo pull request hoặc báo cáo issues trên GitHub.
-
-## License
-
-Lite Laravel Framework được phát hành dưới [giấy phép MIT](LICENSE).
+Lite Laravel framework là phần mềm mã nguồn mở được cấp phép theo [Giấy phép MIT](LICENSE).

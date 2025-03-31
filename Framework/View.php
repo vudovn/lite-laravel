@@ -3,6 +3,7 @@
 namespace Framework;
 
 use Framework\Template\BladeCompiler;
+use Framework\Template\BladeDirectives;
 
 class View
 {
@@ -23,47 +24,86 @@ class View
         $this->cachePath = $config['compiled'] ?? storage_path('cache/views');
         $this->compiler = new BladeCompiler($this->cachePath);
 
+        // Đăng ký các blade directive tùy chỉnh
+        BladeDirectives::register($this->compiler);
+
         // Log the viewPath for debugging
         error_log("View path: " . $this->viewPath);
     }
 
     public function render($template, $data = [])
     {
-        // Create storage directory if it doesn't exist
-        if (!is_dir($this->cachePath)) {
-            mkdir($this->cachePath, 0755, true);
+        try {
+            // Create storage directory if it doesn't exist
+            if (!is_dir($this->cachePath)) {
+                mkdir($this->cachePath, 0755, true);
+            }
+
+            $templatePath = $this->findTemplate($template);
+
+            if (!$templatePath) {
+                throw new \Exception("View template not found: $template");
+            }
+
+            // Compile the template if it uses Blade syntax
+            if (strpos($templatePath, '.blade.php') !== false) {
+                $templatePath = $this->compiler->compile($templatePath);
+            }
+
+            // Thiết lập biến toàn cục cho Blade
+            global $__sections, $__currentSection, $__layout, $__componentPath, $slot;
+            $__sections = [];
+            $__currentSection = '';
+            $__layout = null;
+            $__componentPath = '';
+            $slot = '';
+
+            // Extract data to make variables available in the view
+            extract($data);
+
+            // Start output buffering
+            ob_start();
+
+            // Include the template
+            include $templatePath;
+
+            // Get the view content
+            $content = ob_get_clean();
+
+            // For debugging
+            if (env('APP_ENV') === 'local' && env('APP_DEBUG') === true) {
+                error_log("Rendering template: " . $template);
+                error_log("Layout: " . ($__layout ?? 'none'));
+                error_log("Sections: " . print_r($__sections, true));
+            }
+
+            // If there's an @extends directive in the view
+            if (isset($__layout) && $__layout) {
+                return $this->renderWithLayout($__layout, array_merge($data, ['content' => $content, '__sections' => $__sections ?? []]));
+            }
+            // If using a layout via method call or data parameter
+            else if (isset($data['layout']) || $this->layout) {
+                $layoutName = $data['layout'] ?? $this->layout;
+                return $this->renderWithLayout($layoutName, array_merge($data, ['content' => $content]));
+            }
+
+            return $content;
+        } catch (\Exception $e) {
+            // Return more detailed error in development
+            if (env('APP_ENV') === 'local') {
+                return '<div style="color:red;padding:20px;border:1px solid red;margin:20px;font-family:monospace;">
+                    <h2>View Error</h2>
+                    <p>' . $e->getMessage() . '</p>
+                    <h3>Template</h3>
+                    <p>' . $template . '</p>
+                    <h3>Stack Trace</h3>
+                    <pre>' . $e->getTraceAsString() . '</pre>
+                </div>';
+            }
+
+            // Generic error in production
+            return 'Error rendering view: ' . $e->getMessage();
         }
-
-        $templatePath = $this->findTemplate($template);
-
-        if (!$templatePath) {
-            throw new \Exception("View template not found: $template");
-        }
-
-        // Compile the template if it uses Blade syntax
-        if (strpos($templatePath, '.blade.php') !== false) {
-            $templatePath = $this->compiler->compile($templatePath);
-        }
-
-        // Extract data to make variables available in the view
-        extract($data);
-
-        // Start output buffering
-        ob_start();
-
-        // Include the template
-        include $templatePath;
-
-        // Get the view content
-        $content = ob_get_clean();
-
-        // If using a layout, render it with the content
-        if (isset($data['layout']) || $this->layout) {
-            $layoutName = $data['layout'] ?? $this->layout;
-            return $this->renderWithLayout($layoutName, array_merge($data, ['content' => $content]));
-        }
-
-        return $content;
     }
 
     protected function renderWithLayout($layout, $data)
@@ -80,6 +120,14 @@ class View
         if (strpos($layoutPath, '.blade.php') !== false) {
             $layoutPath = $this->compiler->compile($layoutPath);
         }
+
+        // Thiết lập biến toàn cục cho Blade
+        global $__sections, $__currentSection, $__layout, $__componentPath, $slot;
+        $__sections = $data['__sections'] ?? [];
+        $__currentSection = '';
+        $__layout = null;
+        $__componentPath = '';
+        $slot = '';
 
         // Extract data to make variables available in the layout
         extract($data);

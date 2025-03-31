@@ -51,4 +51,6 @@ return [
     |
     */
     'url' => env('APP_URL', 'http://localhost'),
+
+    'view_cache' => false,
 ];

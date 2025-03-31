@@ -1,0 +1,237 @@
+/**
+ * Toarts.js - Modern Toast Notification Library
+ * Version 1.1.0
+ */
+.toarts-container {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  max-width: 100%;
+}
+
+.toarts-toast {
+  position: relative;
+  min-width: 300px;
+  max-width: 400px;
+  margin: 0 0 16px 0;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+  transform-origin: center;
+  border-left: 4px solid transparent;
+}
+
+.toarts-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+.toarts-icon {
+  margin-right: 12px;
+  font-size: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.toarts-message-container {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.toarts-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 16px;
+  line-height: 1.4;
+  padding-right: 20px;
+}
+
+.toarts-text {
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  opacity: 0.9;
+}
+
+.toarts-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.toarts-close:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.toarts-close:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Progress bar */
+.toarts-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.toarts-progress-bar {
+  height: 100%;
+  width: 100%;
+  transition: width linear;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Type-specific styles */
+.toarts-success {
+  background-color: #10b981;
+  color: #ffffff;
+  border-left-color: #059669;
+}
+
+.toarts-error {
+  background-color: #ef4444;
+  color: #ffffff;
+  border-left-color: #dc2626;
+}
+
+.toarts-warning {
+  background-color: #f59e0b;
+  color: #ffffff;
+  border-left-color: #d97706;
+}
+
+.toarts-info {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border-left-color: #2563eb;
+}
+
+/* Animations */
+@keyframes toarts-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toarts-slide {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toarts-bounce {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Container Positions */
+.toarts-container.toarts-top-right {
+  top: 20px;
+  right: 20px;
+  align-items: flex-end;
+}
+
+.toarts-container.toarts-top-left {
+  top: 20px;
+  left: 20px;
+  align-items: flex-start;
+}
+
+.toarts-container.toarts-top-center {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.toarts-container.toarts-bottom-right {
+  bottom: 20px;
+  right: 20px;
+  align-items: flex-end;
+}
+
+.toarts-container.toarts-bottom-left {
+  bottom: 20px;
+  left: 20px;
+  align-items: flex-start;
+}
+
+.toarts-container.toarts-bottom-center {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .toarts-toast {
+    min-width: 100%;
+    max-width: 90vw;
+    margin: 0 0 10px 0;
+  }
+
+  .toarts-container.toarts-top-center,
+  .toarts-container.toarts-bottom-center {
+    width: 90%;
+  }
+
+  .toarts-container.toarts-top-left,
+  .toarts-container.toarts-top-right,
+  .toarts-container.toarts-bottom-left,
+  .toarts-container.toarts-bottom-right {
+    left: 5%;
+    right: 5%;
+    align-items: stretch;
+  }
+}

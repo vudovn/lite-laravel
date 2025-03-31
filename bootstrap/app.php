@@ -35,6 +35,32 @@ $app->singleton('router', function () use ($app) {
     return new Router($app);
 });
 
+// Register paths
+$app->bind('paths.base', function () {
+    return dirname(__DIR__);
+});
+
+$app->bind('paths.public', function () {
+    return dirname(__DIR__) . '/public';
+});
+
+$app->bind('paths.config', function () {
+    return dirname(__DIR__) . '/config';
+});
+
+$app->bind('paths.storage', function () {
+    return dirname(__DIR__) . '/storage';
+});
+
+$app->bind('paths.resources', function () {
+    return dirname(__DIR__) . '/resources';
+});
+
+// Set up the view
+$app->singleton('view', function () use ($app) {
+    return new \Framework\View(view_path());
+});
+
 // Load framework helpers
 require_once __DIR__ . '/helpers.php';
 
@@ -47,8 +73,8 @@ if (is_dir(__DIR__ . '/../app/Helpers')) {
 
 // Register middleware
 $app->registerMiddleware([
-    // List of global middleware
-    \App\Middleware\AlertMiddleware::class,
+    // List of global middleware - to be registered when needed
+    \App\Middleware\FlashSessionMiddleware::class,
 ]);
 
 // Load routes

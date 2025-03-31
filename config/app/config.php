@@ -9,7 +9,7 @@ return [
     | This value is the name of your application.
     |
     */
-    'name' => 'VuToiChoi',
+    'name' => env('APP_NAME', 'LitePHP'),
 
     /*
     |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ return [
     | services the application utilizes.
     |
     */
-    'environment' => 'local',
+    'environment' => env('APP_ENV', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ return [
     | application.
     |
     */
-    'debug' => true,
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
     | This URL is used by the framework to properly generate URLs.
     |
     */
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -124,13 +124,11 @@ return [
     | Alert System Configuration
     |--------------------------------------------------------------------------
     |
-    | Configuration for the toast notification system.
+    | Configuration for standard alert notifications.
     |
     */
     'alerts' => [
-        'duration' => 4000,           // Duration in milliseconds
-        'position' => 'top-right',    // Positions: top-right, top-left, top-center, bottom-right, bottom-left, bottom-center
-        'close' => true,              // Show close button
+        'duration' => 4000,           // Duration in milliseconds 
         'theme' => 'light',           // Light or dark theme
         'escape_html' => true,        // Escape HTML in messages
     ],

@@ -76,7 +76,7 @@ if (!function_exists('asset')) {
      */
     function asset($path)
     {
-        return url('public/' . ltrim($path, '/'));
+        return url('/' . ltrim($path, '/'));
     }
 }
 
@@ -181,8 +181,7 @@ if (!function_exists('old')) {
      */
     function old($key, $default = '')
     {
-        $old = session('_old_input');
-        return $old[$key] ?? $default;
+        return session()->getOldInput($key, $default);
     }
 }
 
@@ -196,7 +195,7 @@ if (!function_exists('has_error')) {
     function has_error($field)
     {
         $errors = session('_errors');
-        return isset($errors[$field]);
+        return isset($errors) && isset($errors[$field]) && !empty($errors[$field]);
     }
 }
 
@@ -248,86 +247,6 @@ if (!function_exists('auth')) {
         }
 
         return \App\Models\User::find($userId);
-    }
-}
-
-if (!function_exists('toast_success')) {
-    /**
-     * Flash a success message
-     * 
-     * @param string $message
-     * @param string $title
-     * @return void
-     */
-    function toast_success($message, $title = 'Success')
-    {
-        $notifications = session('flash_notification') ?? [];
-        $notifications[] = [
-            'type' => 'success',
-            'message' => $message,
-            'title' => $title
-        ];
-        session('flash_notification', $notifications);
-    }
-}
-
-if (!function_exists('toast_error')) {
-    /**
-     * Flash an error message
-     * 
-     * @param string $message
-     * @param string $title
-     * @return void
-     */
-    function toast_error($message, $title = 'Error')
-    {
-        $notifications = session('flash_notification') ?? [];
-        $notifications[] = [
-            'type' => 'error',
-            'message' => $message,
-            'title' => $title
-        ];
-        session('flash_notification', $notifications);
-    }
-}
-
-if (!function_exists('toast_info')) {
-    /**
-     * Flash an info message
-     * 
-     * @param string $message
-     * @param string $title
-     * @return void
-     */
-    function toast_info($message, $title = 'Info')
-    {
-        $notifications = session('flash_notification') ?? [];
-        $notifications[] = [
-            'type' => 'info',
-            'message' => $message,
-            'title' => $title
-        ];
-        session('flash_notification', $notifications);
-    }
-}
-
-if (!function_exists('toast_warning')) {
-    /**
-     * Flash a warning message
-     * 
-     * @param string $message
-     * @param string $title
-     * @return void
-     */
-    function toast_warning($message, $title = 'Warning')
-    {
-        $notifications = session('flash_notification') ?? [];
-        $notifications[] = [
-            'type' => 'warning',
-            'message' => $message,
-            'title' => $title
-        ];
-        session('flash_notification', $notifications);
     }
 }
 
@@ -696,4 +615,188 @@ if (!function_exists('make_migration')) {
         $creator = new \Framework\Database\Migration\MigrationCreator();
         return $creator->create($name, database_path('migrations'), $table, $create);
     }
+}
+
+if (!function_exists('library')) {
+    /**
+     * Truy cập đến LibraryManager
+     * 
+     * @return \Framework\Library\LibraryManager
+     */
+    function library()
+    {
+        return app('library');
+    }
+}
+
+if (!function_exists('Library')) {
+    /**
+     * Sử dụng trực tiếp directive @Library trong Blade
+     * Đánh dấu thư viện để tải, nhưng không trả về nội dung
+     * 
+     * @param string $name Tên thư viện cần load hoặc 'js' để đánh dấu chỗ chèn JS
+     * @return string
+     */
+    function Library($name = null)
+    {
+        if (!$name) {
+            return '';
+        }
+
+        if ($name === 'js') {
+            return '<!-- js -->'; // Đánh dấu vị trí chèn JS
+        }
+
+        if (app()->has('library')) {
+            app('library')->load($name);
+        }
+
+        return '';
+    }
+}
+
+/**
+ * Tạo thông báo toast và lưu vào session flash
+ * 
+ * @param string $message Nội dung thông báo
+ * @param string $type Loại thông báo: success, error, warning, info
+ * @param string $title Tiêu đề thông báo
+ * @param int $duration Thời gian hiển thị (ms)
+ * @return void
+ */
+function toast($message, $type = 'info', $title = null, $duration = 5000)
+{
+    // Kiểm tra nếu session chưa được khởi tạo
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Tiêu đề mặc định dựa theo loại thông báo
+    if ($title === null) {
+        switch ($type) {
+            case 'success':
+                $title = 'Thành công';
+                break;
+            case 'error':
+                $title = 'Lỗi';
+                break;
+            case 'warning':
+                $title = 'Cảnh báo';
+                break;
+            default:
+                $title = 'Thông báo';
+                break;
+        }
+    }
+
+    // Lưu thông báo vào session flash
+    $_SESSION['_toarts'] = [
+        'message' => $message,
+        'type' => $type,
+        'title' => $title,
+        'duration' => $duration
+    ];
+
+    // Đảm bảo session được lưu ngay lập tức
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        session_write_close();
+        session_start();
+    }
+}
+
+/**
+ * Tạo thông báo thành công
+ * 
+ * @param string $message Nội dung thông báo
+ * @param string $title Tiêu đề thông báo
+ * @param int $duration Thời gian hiển thị (ms)
+ * @return void
+ */
+function toast_success($message, $title = null, $duration = 5000)
+{
+    toast($message, 'success', $title, $duration);
+}
+
+/**
+ * Tạo thông báo lỗi
+ * 
+ * @param string $message Nội dung thông báo
+ * @param string $title Tiêu đề thông báo
+ * @param int $duration Thời gian hiển thị (ms)
+ * @return void
+ */
+function toast_error($message, $title = null, $duration = 5000)
+{
+    toast($message, 'error', $title, $duration);
+}
+
+/**
+ * Tạo thông báo cảnh báo
+ * 
+ * @param string $message Nội dung thông báo
+ * @param string $title Tiêu đề thông báo
+ * @param int $duration Thời gian hiển thị (ms)
+ * @return void
+ */
+function toast_warning($message, $title = null, $duration = 5000)
+{
+    toast($message, 'warning', $title, $duration);
+}
+
+/**
+ * Tạo thông báo thông tin
+ * 
+ * @param string $message Nội dung thông báo
+ * @param string $title Tiêu đề thông báo
+ * @param int $duration Thời gian hiển thị (ms)
+ * @return void
+ */
+function toast_info($message, $title = null, $duration = 5000)
+{
+    toast($message, 'info', $title, $duration);
+}
+
+/**
+ * Tạo script khởi tạo Toarts từ session flash
+ * 
+ * @return string HTML script để khởi tạo Toarts
+ */
+function toasts_script()
+{
+    // Kiểm tra nếu session chưa được khởi tạo
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Nếu không có thông báo toast trong session thì trả về rỗng
+    if (empty($_SESSION['_toarts'])) {
+        return '';
+    }
+
+    // Lấy thông báo từ session
+    $toast = $_SESSION['_toarts'];
+    // Xóa thông báo khỏi session để không hiển thị lại
+    unset($_SESSION['_toarts']);
+
+    $script = '<script>';
+    $script .= 'document.addEventListener("DOMContentLoaded", function() {
+        console.log("Toasts script executing");
+        if (typeof Toarts !== "undefined") {
+            try {
+                Toarts.create({
+                    type: "' . $toast['type'] . '",
+                    title: "' . addslashes($toast['title']) . '",
+                    text: "' . addslashes($toast['message']) . '",
+                    duration: ' . $toast['duration'] . '
+                });
+            } catch (error) {
+                console.error("Error creating toast:", error);
+            }
+        } else {
+            console.error("Toarts library not loaded. Please include the Toarts JS and CSS files.");
+        }
+    });';
+    $script .= '</script>';
+
+    return $script;
 }

@@ -1,25 +1,32 @@
 <?php
 
 use Framework\Facades\Route;
-use App\Controllers\HomeController;
-use App\Controllers\AuthController;
-use App\Controllers\DashboardController;
 
-// Basic Routes
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/about', [HomeController::class, 'about']);
-Route::get('/contact', [HomeController::class, 'contact']);
-
-// Authentication Routes
-Route::get('/register', [AuthController::class, 'showRegisterForm']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'showLoginForm']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
-
-// Dashboard routes with prefix
-Route::group(['prefix' => 'dashboard'], function ($router) {
-    $router->get('', [DashboardController::class, 'index']);
-    $router->get('/profile', [DashboardController::class, 'profile']);
+Route::get("/", function () {
+    return view("welcome");
 });
-Route::get('/dashboard', [DashboardController::class, 'index']);
+
+
+// Route test toast với redirect để sử dụng flash session
+Route::get('/test-toast', function () {
+    // Kiểm tra nếu session chưa được khởi tạo
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    toast_warning('Đây là thông báo cảnh báo test', 'Cảnh báo');
+    return redirect('/');
+});
+
+// Route để xóa cache view
+Route::get('/clear-view-cache', function () {
+    $files = glob(storage_path('cache/views/*'));
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            unlink($file);
+        }
+    }
+    toast_success('Cache view đã được xóa', 'Thành công');
+    return redirect($_SERVER['HTTP_REFERER'] ?? '/');
+});
+

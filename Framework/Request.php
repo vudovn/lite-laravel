@@ -127,10 +127,10 @@ class Request
         }
 
         // Store validation errors in session
-        session('_errors', $validator->errors());
+        session()->flash('_errors', $validator->errors());
 
         // Store old input in session
-        session('_old_input', $this->except(['password', 'password_confirmation']));
+        session()->flashInput($this->except(['password', 'password_confirmation']));
 
         // Redirect back
         header('Location: ' . $_SERVER['HTTP_REFERER']);

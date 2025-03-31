@@ -21,10 +21,16 @@ class Controller
         return (new Response('', 302))->setHeader('Location', $uri);
     }
 
-    // Add consistent redirect with flash message
+    // Updated redirect with flash message without using toast
     protected function redirectWithMessage($uri, $message, $type = 'info', $title = '')
     {
-        toast($message, $type, $title);
+        // Store message in session using flash
+        session()->flash('flash_message', [
+            'type' => $type,
+            'message' => $message,
+            'title' => $title
+        ]);
+
         return $this->redirect($uri);
     }
 }
